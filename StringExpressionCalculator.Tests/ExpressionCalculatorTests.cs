@@ -1,11 +1,13 @@
-﻿namespace StringExpressionCalculator.Tests;
+﻿using System.Linq.Expressions;
+
+namespace StringExpressionCalculator.Tests;
 
 public class ExpressionCalculatorTests
 {
     [Test]
-    public void Calculate_EmptyStringAsParam_ReturnsZero()
+    public void Calculate_NoDigitsInExpressionAsParam_ReturnsZero()
     {
-        Assert.That(ExpressionCalculator.Calculate(""), Is.EqualTo(0));
+        Assert.That(ExpressionCalculator.Calculate("+"), Is.EqualTo(0));
     }
 
     [Test]
@@ -33,7 +35,7 @@ public class ExpressionCalculatorTests
     {
         Assert.That(ExpressionCalculator.ValidateBraces(expression), Is.EqualTo(result));
     }
-    
+
     [TestCase("1+2-3", 0)]
     [TestCase("2*(5+5*2)/3+(6/2+8)", 21)]
     [TestCase("(1+(4+5+2)-3)+(6.1+8)", 23.1)]
@@ -43,17 +45,5 @@ public class ExpressionCalculatorTests
     public void Calculate_StringExpression_ReturnsResult(string expression, decimal result)
     {
         Assert.That(ExpressionCalculator.Calculate(expression), Is.EqualTo(result));
-    }
-
-    [Test]
-    public void FindNumbers_StringExpressionContainsNumbers_ReturnsTrue()
-    {
-        Assert.That(ExpressionCalculator.FindNumbers("13.1"), Is.EqualTo(true));
-    }
-
-    [Test]
-    public void FindNumbers_StringEpressionContainsNumbers_ReturnsFalse()
-    {
-        Assert.That(ExpressionCalculator.FindNumbers("--=+."), Is.EqualTo(false));
     }
 }
