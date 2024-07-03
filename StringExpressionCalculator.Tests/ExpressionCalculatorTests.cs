@@ -11,7 +11,7 @@ public class ExpressionCalculatorTests
     [Test]
     public void Calculate_StringWithSingleNumberAsParam_ReturnsTheNumber()
     {
-        Assert.That(ExpressionCalculator.Calculate("1"), Is.EqualTo(1));
+        Assert.That(ExpressionCalculator.Calculate("12"), Is.EqualTo(12));
     }
 
     [TestCase("1+2-3", true)]
@@ -39,7 +39,7 @@ public class ExpressionCalculatorTests
     [TestCase("(1+(4+5+2)-3)+(6.1+8)", 23.1)]
     [TestCase("3+2*2", 7)]
     [TestCase("3/2", 1.5)]
-    [TestCase("3+5/2", 5)]
+    [TestCase("3+5/2", 5.5)]
     public void Calculate_StringExpression_ReturnsResult(string expression, decimal result)
     {
         Assert.That(ExpressionCalculator.Calculate(expression), Is.EqualTo(result));
