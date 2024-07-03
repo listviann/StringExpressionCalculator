@@ -44,4 +44,16 @@ public class ExpressionCalculatorTests
     {
         Assert.That(ExpressionCalculator.Calculate(expression), Is.EqualTo(result));
     }
+
+    [Test]
+    public void FindNumbers_StringExpressionContainsNumbers_ReturnsTrue()
+    {
+        Assert.That(ExpressionCalculator.FindNumbers("13.1"), Is.EqualTo(true));
+    }
+
+    [Test]
+    public void FindNumbers_StringEpressionContainsNumbers_ReturnsFalse()
+    {
+        Assert.That(ExpressionCalculator.FindNumbers("--=+."), Is.EqualTo(false));
+    }
 }

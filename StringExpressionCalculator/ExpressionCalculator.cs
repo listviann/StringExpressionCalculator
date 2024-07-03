@@ -4,6 +4,42 @@ namespace StringExpressionCalculator;
 
 public class ExpressionCalculator
 {
+    public static bool FindNumbers(string expression)
+    {
+        var stack = new Stack<decimal>();
+
+        decimal number = 0;
+        int n = expression.Length;
+        int decimalEncountered = 0;
+
+        int numbersCount = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            char c = expression[i];
+            if (char.IsDigit(c))
+            {
+                if (decimalEncountered > 0)
+                {
+                    number += (c - '0') / Convert.ToDecimal(Math.Pow(10, decimalEncountered));
+                    decimalEncountered++;
+                    numbersCount++;
+                }
+                else
+                {
+                    number = number * 10 + (c - '0');
+                    numbersCount++;
+                }
+            }
+            else if (c == '.')
+            {
+                decimalEncountered = 1;
+            }
+        }
+
+        return numbersCount > 0;
+    }
+
     public static bool ValidateBraces(string expression)
     {
         string braces = Regex.Replace(expression, @"[^\(\)]", "");
@@ -108,6 +144,7 @@ public class ExpressionCalculator
         {
             result += stack.Pop();
         }
+
         return Math.Round(result, 2, MidpointRounding.AwayFromZero);
     }
 }
