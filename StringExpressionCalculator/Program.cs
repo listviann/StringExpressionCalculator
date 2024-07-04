@@ -17,4 +17,8 @@ while (true)
     {
         Console.WriteLine(ex.Message);
     }
+    catch (DivideByZeroException ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 }
