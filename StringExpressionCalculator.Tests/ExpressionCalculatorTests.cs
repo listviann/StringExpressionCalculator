@@ -16,24 +16,14 @@ public class ExpressionCalculatorTests
         Assert.That(ExpressionCalculator.Calculate("12"), Is.EqualTo(12));
     }
 
-    [TestCase("1+2-3", true)]
-    [TestCase("1+(2-3)", true)]
-    [TestCase("1+(2-3)", true)]
-    [TestCase("2*(5+5*2)/3+(6/2+8)", true)]
-    [TestCase("(1+(4+5+2)-3)+(6+8)", true)]
-    [TestCase("(1+(4+5+2)-3)+(6.1+8)", true)]
-    public void ValidateBraces_StringWithCorrectBracesOrder_ReturnsTrue(string expression, bool result)
+    [TestCase("1+(2-3")]
+    [TestCase("1+2-3)")]
+    [TestCase("2*((5+5*2)/3+(6/(2+8)")]
+    [TestCase(")))))(1+(4+5+2)-3)+(6.1+8)(((")]
+    public void Calculate_StringWithIncorrectBracesOrder_ThrowsArgumentException(string expression)
     {
-        Assert.That(ExpressionCalculator.ValidateBraces(expression), Is.EqualTo(result));
-    }
-
-    [TestCase("1+(2-3", false)]
-    [TestCase("1+2-3)", false)]
-    [TestCase("2*((5+5*2)/3+(6/(2+8)", false)]
-    [TestCase(")))))(1+(4+5+2)-3)+(6.1+8)(((", false)]
-    public void ValidateBraces_StringWithIncorrectBracesOrder_ReturnsFalse(string expression, bool result)
-    {
-        Assert.That(ExpressionCalculator.ValidateBraces(expression), Is.EqualTo(result));
+        Assert.That(() => ExpressionCalculator.Calculate(expression), 
+            Throws.Exception.TypeOf<ArgumentException>());
     }
 
     [TestCase("1+2-3", 0)]
